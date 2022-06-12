@@ -15,7 +15,7 @@ const Crypto: React.FC<{ data: CryptoType, currency: string }> = ({ data, curren
 
     return (
         <div className={styles.crypto}>
-            <h2 className={styles.name}>{cryptos[name]}</h2>
+            <h2 data-testid="abc" className={styles.name}>{cryptos[name]}</h2>
             <div>
                 <h4 className={styles.price}>{currencySymbol}{price}</h4>
                 <div className={styles.volume_change}>
