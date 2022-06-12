@@ -2,14 +2,14 @@ import React from "react";
 import styles from '../../styles/Crypto.module.css'
 import { cryptos } from "../../constants/cryptos"
 import { CryptoType } from "../../types/cryptos";
+import { currencySymbols } from "../../constants/currencySymbols";
 
 
-const Crypto: React.FC<{ data: CryptoType }> = ({ data }) => {
-
+const Crypto: React.FC<{ data: CryptoType, currency: string }> = ({ data, currency }) => {
 
     const name = data.ticker.base.toLowerCase()
     const { price, volume, change } = data.ticker
-    let currencySymbol = '$'
+    let currencySymbol = currencySymbols[currency]
 
     return (
         <div className={styles.crypto}>
