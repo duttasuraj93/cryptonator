@@ -23,7 +23,7 @@ const Crypto: React.FC<{ data: CryptoType, currency: string }> = ({ data, curren
                     </div>
                     <div className={styles.change__container}>
                         <h5 className={styles.change__title}>change:</h5>
-                        <h5 className={`${parseInt(change) < 0 ? styles.loss : styles.gain}`}>{change}</h5>
+                        <h5 className={`${parseFloat(change) < 0 ? styles.loss : styles.gain}`}>{change}</h5>
                     </div>
                 </div>
             </div>
