@@ -36,5 +36,43 @@
             "success": true,
             "error": ""
         }
+    ],
+    "cryptos2": [
+        {
+            "ticker": {
+                "base": "BTC",
+                "target": "USD",
+                "price": "32.81789853",
+                "volume": "54.16207345",
+                "change": "18.01594102"
+            },
+            "timestamp": 1654914544,
+            "success": true,
+            "error": ""
+        },
+        {
+            "ticker": {
+                "base": "DOGE",
+                "target": "USD",
+                "price": "5450.07545745",
+                "volume": "5436.67987000",
+                "change": "-0.00008135"
+            },
+            "timestamp": 1654916464,
+            "success": true,
+            "error": ""
+        },
+        {
+            "ticker": {
+                "base": "ETH",
+                "target": "USD",
+                "price": "3465.40614457",
+                "volume": "457.73551756",
+                "change": "0.35561806"
+            },
+            "timestamp": 1654914544,
+            "success": true,
+            "error": ""
+        }
     ]
 }
