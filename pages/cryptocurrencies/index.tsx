@@ -6,6 +6,7 @@ import { CryptoType } from '../../types/cryptos'
 import useInterval from '../../hooks/useInterval'
 import { GetServerSideProps } from 'next'
 import { useAppSelector, useAppDispatch } from '../../hooks/redux'
+import { store } from '../../store'
 
 
 const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
@@ -59,7 +60,9 @@ export default Cryptocurrencies
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const response = await fetch('http://localhost:3001/cryptos')
+    const reduxState = store.getState()
+    const currency = reduxState.cryptoSlice.currency
+    const response = await fetch(`http://localhost:3001/cryptos-${currency}`)
     const data = await response.json()
 
     return {
