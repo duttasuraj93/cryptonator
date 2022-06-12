@@ -1,0 +1,68 @@
+.crypto {
+    padding: 15px 10px;
+    width: calc(100% / 3 - 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+.name {
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.price {
+    color: orange;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.volume_change {
+    display: flex;
+}
+
+.volume__container {
+    margin-right: 40px;
+}
+
+.volume__title {
+    color: lightgrey;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.volume {
+    color: grey;
+    font-weight: 500;
+}
+
+.change__title {
+    color: lightgrey;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.gain {
+    color: green;
+    font-weight: 500;
+}
+
+.loss {
+    color: red;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 900px) {
+    .crypto {
+        width: calc(100% / 2 - 20px);
+   }
+}
+
+@media only screen and (max-width: 600px) {
+    .crypto {
+        width: 100%;
+   }
+}

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
-import styles from '../styles/Cryptocurrencies.module.css'
+import styles from '../../styles/Cryptocurrencies.module.css'
 import Crypto from '../../components/Cryptocurrencies/Crypto'
 import { CryptoType } from '../../types/cryptos'
 
@@ -9,9 +9,11 @@ const Cryptocurrencies: NextPage<{cryptos: CryptoType[]}> = ({cryptos}) => {
   const [cryptocurrencies, setCryptocurrencies] = useState<CryptoType[]>(cryptos);
   
   return (
-    <div>
-      {cryptocurrencies.map((item, index) => <Crypto key={index} data={item} />)}
+    <div className={styles.wrapper}>
+    <div className={styles.crypto__container}>
+        {cryptocurrencies.map((item, index) => <Crypto key={index} data={item} />)}
     </div>
+  </div>
   )
 }
 

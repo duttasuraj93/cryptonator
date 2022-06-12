@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../../styles/Crypto.module.css'
 import { cryptos } from "../../constants/cryptos"
 import { CryptoType } from "../../types/cryptos";
 
@@ -11,18 +12,18 @@ const Crypto: React.FC<{ data: CryptoType }> = ({ data }) => {
     let currencySymbol = '$'
 
     return (
-        <div className='crypto'>
-            <h2 className='name'>{cryptos[name]}</h2>
+        <div className={styles.crypto}>
+            <h2 className={styles.name}>{cryptos[name]}</h2>
             <div>
-                <h4 className='price'>{currencySymbol}{price}</h4>
-                <div className='volume-change'>
-                    <div className='volume__container'>
-                        <h5 className='title'>volume:</h5>
-                        <h5 className='volume'>{volume}</h5>
+                <h4 className={styles.price}>{currencySymbol}{price}</h4>
+                <div className={styles.volume_change}>
+                    <div className={styles.volume__container}>
+                        <h5 className={styles.volume__title}>volume:</h5>
+                        <h5 className={styles.volume}>{volume}</h5>
                     </div>
-                    <div className='change__container'>
-                        <h5 className='title'>change:</h5>
-                        <h5 className={`change ${parseInt(change) < 0 ? 'loss' : 'gain'}`}>{change}</h5>
+                    <div className={styles.change__container}>
+                        <h5 className={styles.change__title}>change:</h5>
+                        <h5 className={`${parseInt(change) < 0 ? styles.loss : styles.gain}`}>{change}</h5>
                     </div>
                 </div>
             </div>
