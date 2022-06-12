@@ -3,13 +3,15 @@ import styles from '../../styles/Crypto.module.css'
 import { cryptos } from "../../constants/cryptos"
 import { CryptoType } from "../../types/cryptos";
 import { currencySymbols } from "../../constants/currencySymbols";
+import { useAppSelector } from "../../hooks/redux";
 
 
 const Crypto: React.FC<{ data: CryptoType, currency: string }> = ({ data, currency }) => {
 
+    const cryptoslice = useAppSelector((state) => state.cryptoSlice)
     const name = data.ticker.base.toLowerCase()
     const { price, volume, change } = data.ticker
-    let currencySymbol = currencySymbols[currency]
+    let currencySymbol = currencySymbols[cryptoslice.currency]
 
     return (
         <div className={styles.crypto}>

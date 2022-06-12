@@ -3,16 +3,16 @@ import { useState, useEffect } from 'react'
 import styles from '../../styles/Cryptocurrencies.module.css'
 import Crypto from '../../components/Cryptocurrencies/Crypto'
 import { CryptoType } from '../../types/cryptos'
-import { CurrencyType } from '../../types/currencies'
 import useInterval from '../../hooks/useInterval'
 import { GetServerSideProps } from 'next'
+import { useAppSelector, useAppDispatch } from '../../hooks/redux'
 
 
 const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
 
     const [cryptocurrencies, setCryptocurrencies] = useState<CryptoType[]>(cryptos);
-    const [currency, setCurrency] = useState<CurrencyType>('usd');
     const [isInWndow, setIsInWindow] = useState<boolean>(true)
+    const cryptoslice = useAppSelector((state) => state.cryptoSlice)
 
     useEffect(() => {
         const checkVisibility = () => {
@@ -45,9 +45,11 @@ const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
     }, 1000 * 60);
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.crypto__container}>
-                {cryptocurrencies.map((item, index) => <Crypto key={index} data={item} currency={currency} />)}
+        <div>
+            <div className={styles.wrapper}>
+                <div className={styles.crypto__container}>
+                    {cryptocurrencies.map((item, index) => <Crypto key={index} data={item} currency={cryptoslice.currency} />)}
+                </div>
             </div>
         </div>
     )
