@@ -38,6 +38,8 @@ const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
 
     const getCryptoData = async () => {
         const response = await Promise.all(cryptoCode.map(item => fetch(`https://api.cryptonator.com/api/ticker/${item}-${cryptoslice.currency}`), {headers: cryptoHeaders}));
+        
+        // const response = await Promise.all(cryptoCode.map(item => fetch(`https://api.cryptonator.com/api/ticker/${item}-${cryptoslice.currency}`), {headers: cryptoHeaders}));
 
         let data = await Promise.all(response.map(res => res.json()))
         setCryptocurrencies(data)
@@ -75,6 +77,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const currency = reduxState.cryptoSlice.currency
 
     const response = await Promise.all(cryptoCode.map(item => fetch(`https://api.cryptonator.com/api/ticker/${item}-${currency}`), {headers: cryptoHeaders}));
+
+    // const response = await Promise.all(cryptoCode.map(item => fetch(`http://localhost:3001/${item}-${currency}`), {headers: cryptoHeaders}));
 
     let data = await Promise.all(response.map(res => res.json())).catch(err => [])
 
