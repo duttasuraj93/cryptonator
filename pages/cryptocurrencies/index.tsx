@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from '../../styles/Cryptocurrencies.module.css'
 import Crypto from '../../components/Cryptocurrencies/Crypto'
 import { CryptoType } from '../../types/cryptos'
@@ -9,14 +9,15 @@ import { useAppSelector } from '../../hooks/redux'
 import { store } from '../../store'
 import { cryptoCode } from '../../constants/cryptos'
 import { cryptoHeaders } from '../../constants/cryptos'
+import useOnScreen from '../../hooks/useOnScreen'
 
 const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
-
-    console.log(cryptos);
 
     const [cryptocurrencies, setCryptocurrencies] = useState<CryptoType[]>(cryptos);
     const [isInWndow, setIsInWindow] = useState<boolean>(true)
     const cryptoslice = useAppSelector((state) => state.cryptoSlice)
+    const cryptoElementRef = useRef<HTMLDivElement>(null);
+    const isOnScreen = useOnScreen(cryptoElementRef);
 
     useEffect(() => {
         const checkVisibility = () => {
@@ -43,16 +44,16 @@ const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
     }
 
     useInterval(() => {
-        if (isInWndow) {
+        if (isInWndow && isOnScreen) {
             getCryptoData()
         }
 
-    }, 1000 * 5000);
+    }, 1000 * 500);
 
     return (
         <div>
             <div className={styles.wrapper}>
-                <div className={styles.crypto__container}>
+                <div ref={cryptoElementRef} className={styles.crypto__container}>
                     {cryptocurrencies.map((item, index) => <Crypto key={index} data={item} currency={cryptoslice.currency} />)}
                 </div>
             </div>
