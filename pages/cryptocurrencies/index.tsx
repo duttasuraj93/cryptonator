@@ -5,11 +5,14 @@ import Crypto from '../../components/Cryptocurrencies/Crypto'
 import { CryptoType } from '../../types/cryptos'
 import useInterval from '../../hooks/useInterval'
 import { GetServerSideProps } from 'next'
-import { useAppSelector, useAppDispatch } from '../../hooks/redux'
+import { useAppSelector } from '../../hooks/redux'
 import { store } from '../../store'
-
+import { cryptoCode } from '../../constants/cryptos'
+import { cryptoHeaders } from '../../constants/cryptos'
 
 const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
+
+    console.log(cryptos);
 
     const [cryptocurrencies, setCryptocurrencies] = useState<CryptoType[]>(cryptos);
     const [isInWndow, setIsInWindow] = useState<boolean>(true)
@@ -33,8 +36,9 @@ const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
     }, [])
 
     const getCryptoData = async () => {
-        const response = await fetch('http://localhost:3001/cryptos2')
-        const data = await response.json()
+        const response = await Promise.all(cryptoCode.map(item => fetch(`https://api.cryptonator.com/api/ticker/${item}-${cryptoslice.currency}`), {headers: cryptoHeaders}));
+
+        let data = await Promise.all(response.map(res => res.json()))
         setCryptocurrencies(data)
     }
 
@@ -43,7 +47,7 @@ const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
             getCryptoData()
         }
 
-    }, 1000 * 60);
+    }, 1000 * 5000);
 
     return (
         <div>
@@ -62,8 +66,10 @@ export default Cryptocurrencies
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const reduxState = store.getState()
     const currency = reduxState.cryptoSlice.currency
-    const response = await fetch(`http://localhost:3001/cryptos-${currency}`)
-    const data = await response.json()
+
+    const response = await Promise.all(cryptoCode.map(item => fetch(`https://api.cryptonator.com/api/ticker/${item}-${currency}`), {headers: cryptoHeaders}));
+
+    let data = await Promise.all(response.map(res => res.json()))
 
     return {
         props: {
