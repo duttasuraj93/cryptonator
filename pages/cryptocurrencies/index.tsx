@@ -50,6 +50,12 @@ const Cryptocurrencies: NextPage<{ cryptos: CryptoType[] }> = ({ cryptos }) => {
 
     }, 1000 * 500);
 
+    if(cryptocurrencies.length < 1) {
+        return (
+            <div>There was an error loading the page</div>
+        )
+    }
+
     return (
         <div>
             <div className={styles.wrapper}>
@@ -70,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const response = await Promise.all(cryptoCode.map(item => fetch(`https://api.cryptonator.com/api/ticker/${item}-${currency}`), {headers: cryptoHeaders}));
 
-    let data = await Promise.all(response.map(res => res.json()))
+    let data = await Promise.all(response.map(res => res.json())).catch(err => [])
 
     return {
         props: {
